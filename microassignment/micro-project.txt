@@ -1,0 +1,56 @@
+Part 1
+------
+
+a) What is the value of the 'char*' argument that was passed to the print_scrambled() function?
+For bad massage it was 0, for good message it was 0x400951.
+
+b) What would you guess is the cause of the segfault, based on your answer to (a)?
+Since the print scrambled function only changes the value of the characters of the char pointer passed
+in if the first char isn't null, the scrambled_char was never given value for the econd call. I believe 
+if you tried calling print_scrambled(bad_message) first it would've resulted in a compilation error since
+scrambled char was never put on the stack. Either way, scrambled_char isn't on the stack so it can't be cout'ed.
+
+Part 2
+------
+
+a) In which function did the segfault occur?
+
+The segfault occured in the setit function.
+
+b) Which line of the source code (unmodified) caused the segfault?
+
+Line 11
+
+c) Who is the caller of this function?
+
+main
+
+d) What line caused the value of 'number' to change? (Write out the line of code; don't just put the line number by itself.)
+
+  strcpy(buffer, message);
+
+d) According to the expected logic of that line of code, should it cause the value of number to change?
+
+strcpy seems to only "reroute" one char pointer (buffer) to a source char pointer(message), so it shouldn't affect number.
+
+e) In that case, why do you think the value of number may have been changed by that line?
+
+strcpy returns a destination, so I don't know why the value of number changed. Maybe because function is made for 
+C it does something weird in C++.
+f) What happened that caused the program to crash? (since simply changing the value of a local variable normally would not)
+
+Potentially incompatable libraries if the function is made for C language.
+
+Part 3
+------
+
+a) Based on the output from valgrind, why is the write on line 18 "invalid"?
+
+Because it's trying to access an int from the array that is past it's declaration of int array with 4 ints. (i <=size)
+
+b) What line tried to access an uninitialized variable in your code? (Write otu the line of code; don't just put the line number by itself.)
+36, cout << "Sliding Average: " << avg << endl;
+
+c) Which variable was declared but never initialized in example3.cpp?
+
+avg
